@@ -4,17 +4,29 @@ require(`dotenv`).config({
 
 module.exports = {
   siteMetadata: {
-    siteTitleAlt: `Minimal Blog - Gatsby Theme`,
+    siteTitle: `ducharm.dev`,
+    siteTitleAlt: `ducharm.dev`,
+    siteHeadline: `ducharm.dev`,
     navigation: [
-      {
-        title: `Blog`,
-        slug: `/blog`,
-      },
       {
         title: `About`,
         slug: `/about`,
       },
+      {
+        title: `Blog`,
+        slug: `/blog`,
+      },
     ],
+    externalLinks: [
+      {
+        name: `GitHub`,
+        url: `https://github.com/mducharm`
+      },
+      {
+        name: `LinkedIn`,
+        url: `https://www.linkedin.com/in/mducharm/`
+      }
+    ]
   },
   plugins: [
     {
