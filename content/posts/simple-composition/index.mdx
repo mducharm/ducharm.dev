@@ -1,11 +1,11 @@
 ---
 title: "Simple Composition with Array.Reduce"
-date: 2020-01-16
+date: 2020-01-19
 tags:
   - Javascript
 ---
 
-While looking at [functional-php](https://github.com/lstrojny/functional-php), I saw a pretty neat way of doing composition with an array_reduce method, and wanted to recreate it in JavaScript. There are plenty of libraries that implement this, but it's pretty fun knowing that you can get this functionality with a couple lines of plain JavaScript.
+While looking at [functional-php](https://github.com/lstrojny/functional-php), I saw a pretty neat way of doing composition with an array_reduce method, and wanted to recreate it in JavaScript. There are plenty of libraries that implement this (and do so more effectively), but it's pretty fun knowing that you can get this functionality with a couple lines of plain JavaScript.
 
 Here it is:
 
@@ -14,39 +14,43 @@ const compose = (...funcs) =>
   funcs.reduce((previous, current) => x => current(previous(x)));
 ```
 
-First, the spread operator here has the effect of accepting all the arguments as a single array, giving us access to the powerful array methods. We won't have to pass an array of functions, and can just pass an arbitrary number of parameters:
+First, the spread operator here has the effect of accepting all the arguments as a single array, allowing us to use array methods on function's parameters.
 
 ```js
-const compose = (...funcs) => {
-  // ...
-};
+const compose = (...funcs) => // return composed function
+```
 
+So later, we won't have to pass an array of functions, and can just pass an arbitrary number of parameters:
+
+```js
 const timesTwo = x => x * 2;
 const timesThree = x => x * 3;
 
 const timesTwelve = compose(timesTwo, timesTwo, timesThree);
 ```
 
-The compose function must itself return a function, so we know that we'll need to reduce this array of functions into a single function. Calling reduce on the arguments array (funcs) will involve calling each function with some value x, 
+Since the compose function must itself return a function, we need to pass a callback function to the reduce method that returns a function:
 
 ```js
-funcs.reduce(
-  (previous, current) => x => current(previous(x))
-);
-```
-Note: for composition to work, the composed functions must be *endomorphic*, meaning that the input and outputs of the function must be the same.
+const callback = (previous, current) => x => current(previous(x));
 
-What I'm still unsure about is that, in the functional-php implementation, they passed an identity function as the initialValue for the reduce function. I thought this was necessary to make it work, but after removing it compose works just fine.
+funcs.reduce(callback);
+```
+
+_Previous_ will start as funcs[0] and _current_ as funcs[1], but _previous_ will accumulate each function in the array with each call of the callback function: 
 
 ```js
-const compose = (...funcs) =>
-  funcs.reduce(
-    (previous, current) => x => current(previous(x)),
-    x => x
-  );
+previous = x => funcs[1](funcs[0](x)); // first run...
+previous = x => funcs[2](previous(x))); // second run...
+previous = x => funcs[3](previous(x)))); // third run...
 ```
+Once it's reached the end of the array, you have a function that contains calls to each function in the original array, with the very first function call containing your initial x. By returning functions that accept an x with each callback, you ensure that the x can be passed all the way back to the first function call. 
 
-And if you prefer to have functions evaluated from right to left, you can use reduceRight instead:
+For composition to work, the functions must all be unary (i.e. the must all take just one parameter). This is why curried functions are so useful - they make it much easier to compose functions together.
+
+What I'm still unsure about is that, in the functional-php implementation, they passed an identity function (x => x) as the initialValue for the reduce function. It may have something to do with how array_reduce works in PHP - in JavaScript, initialValue defaults to the first item in the array and skips the first item when setting current in the callback function, so it doesn't seem to cause any problems leaving this out. But maybe this is not the case for PHP's array_reduce?
+
+And also: if you prefer to have functions evaluated from right to left, you can use reduceRight instead:
 
 ```js
 const compose = (...funcs) =>
