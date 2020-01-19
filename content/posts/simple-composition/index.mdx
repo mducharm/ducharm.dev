@@ -48,8 +48,23 @@ Once it's reached the end of the array, you have a function that contains calls 
 
 For composition to work, the functions must all be unary (i.e. the must all take just one parameter). This is why curried functions are so useful - they make it much easier to compose functions together.
 
-What I'm still unsure about is that, in the functional-php implementation, they passed an identity function (x => x) as the initialValue for the reduce function. It may have something to do with how array_reduce works in PHP - in JavaScript, initialValue defaults to the first item in the array and skips the first item when setting current in the callback function, so it doesn't seem to cause any problems leaving this out. But maybe this is not the case for PHP's array_reduce?
+With compose, you can then create functions by simply stringing other functions together:
 
+```js
+let phrase = "No imperative code examples here!";
+
+const dropLastWord = s => s.split(" ").slice(0, -1).join(" ");
+const firstLetterOfEachWord = s => s.split(" ").map(w => w[0]).join(" ");
+const removeSpaces = s => s.split(" ").join('');
+
+const decodeMessage = compose(
+    dropLastWord,
+    firstLetterOfEachWord,
+    removeSpaces
+);
+
+decodeMessage(phrase) // Nice
+```
 And also: if you prefer to have functions evaluated from right to left, you can use reduceRight instead:
 
 ```js
