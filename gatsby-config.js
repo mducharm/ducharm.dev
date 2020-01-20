@@ -7,6 +7,7 @@ module.exports = {
     siteTitle: `ducharm.dev`,
     siteTitleAlt: `ducharm.dev`,
     siteHeadline: `ducharm.dev`,
+    siteImage: `/blue_sky.jpg`,
     navigation: [
       {
         title: `About`,
