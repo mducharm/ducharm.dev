@@ -1,0 +1,18 @@
+---
+title: "The Combinatorics of Coding"
+date: 2020-01-26
+tags:
+  - programming
+---
+
+Programming is a kind of work that requires one to have both of the following traits:
+- Able to manage and navigate details with precision
+- Able to zoom out from details to see the relationships between constituent parts 
+
+Considering how finicky compilers can be, the first is a necessity if one is to be at all productive at writing code. But I think the second is also critical, but sometimes neglected. 
+
+Sure, we are accustomed to formalizing the patterns in our code into abstractions so that we may [not repeat ourselves](https://en.wikipedia.org/wiki/Don%27t_repeat_yourself), but even a series of abstractions can tie themselves into knots if you're not careful. 
+
+The basic idea I have in mind is this: in terms of the developer's experience, spaghetti code leads to a combinatorial explosion of possible origins of errors whereas predictable, organized code limits the total possible origins of errors. 
+
+This is why writing code in a functional manner is so important: it reduces the number of locations the developer has to physically look to discern where the problem is coming from. This is also critical in writing code that can be tested at all - a unit test must account for a single point, and cannot handle an exponential number of possible errors.
