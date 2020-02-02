@@ -1,0 +1,116 @@
+---
+title: "Conditional Statements as Data"
+date: 2020-01-27
+tags:
+  - programming
+---
+
+While following along with [this great series by Chris Ferdinandi](https://gomakethings.com/dom-diffing-with-vanilla-js-part-1/), I wrote something like this:
+
+```js
+var node;
+
+if (elem.type === "text") {
+  node = document.createTextNode(elem.content);
+} else if (elem.type === "comment") {
+  node = document.createComment(elem.content);
+} else if (elem.isSVG) {
+  node = document.createElementNS("http://www.w3.org/2000/svg", elem.type);
+} else {
+  node = document.createElement(elem.type);
+}
+```
+
+Something about it just felt messy. Not because it's there's anything wrong with it, but something about the way chains of conditional statements interweaved with code blocks requires a small amount of additional effort to make sense of what's happening.
+
+Think about it this way:
+
+```js
+if (condition1) {
+  block;
+} else if (condition2) {
+  block;
+} else if (condition3) {
+  block;
+} else {
+  block;
+}
+```
+
+Your eyes start at condition1, then down to its code block, then jump over to condition2 and its code block, and so on. This doesn't look so bad in this simplified form, but it does require your eyes to jag back and forth. Can we do better?
+
+What if instead of this:
+
+```
+    condition1
+        block
+              condition2
+        block
+              condition3
+        block
+
+        block
+```
+
+It looked more like this?
+
+```
+    condition1 block
+    condition2 block
+    condition3 block
+    default
+```
+
+For better or worse, we are accustomed to the columns and rows of tables, so
+
+Anyone developing with Rust may think that this looks an awful lot like [match](https://doc.rust-lang.org/rust-by-example/flow_control/match.html)
+
+```js
+const chunk = (arr, size) =>
+  Array.from({ length: Math.ceil(arr.length / size) }, (v, i) =>
+    arr.slice(i * size, i * size + size)
+  );
+
+var handleConditions = (...opts) => {
+    var [...pairs, elseFunction] = pairs;
+
+    return pairs.reduce((previous, current) => {
+        if (current[0]) return current[1];
+        return previous;
+    },
+    elseFunction
+  )
+}
+
+handleConditions(
+    elem
+    elem.type === 'text',       () => document.createTextNode(elem.content),
+    elem.type === 'comment',    () => document.createComment(elem.content),
+    elem.isSVG,                 () => document.createElementNS('http://www.w3.org/2000/svg', elem.type),
+                                () => document.createElement(elem.type)
+)
+
+let text = "Hello";
+
+let goodbye = () => "Goodbye!";
+let comeBack = () => "Come back!";
+let nevermind = () => "Nevermind";
+
+handleConditions(
+    text,
+    text === "Hello", goodbye,
+    text === "Goodbye", comeBack,
+    nevermind
+)
+
+if (text === "Hello"){
+    return goodbye();
+} else if (text === "Goodbye") {
+    return comeBack();
+} else {
+    return nevermind();
+}
+
+```
+
+Is this actually useful? Or is it stupid? I have no idea,
