@@ -12,10 +12,7 @@
     </div>
     {{ end }}
     <h1>{{ .Site.Params.author }}</h1>
-    <h2>
-      {{ .Site.Params.info }}
-      <!-- @ <a href="{{.Site.Params.employerurl}}">{{ .Site.Params.employer }}</a> -->
-    </h2>
+    <h2>{{ .Site.Params.info }}</h2>
     <p>{{ .Site.Params.description }}</p>
     {{ with .Site.Params.social }}
     <ul>
