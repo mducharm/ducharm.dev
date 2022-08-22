@@ -10,4 +10,4 @@ tags = [
 image = "waystar.png"
 +++
 
-Started a new job @ Waystar.
+Started a new job at [Waystar](https://www.waystar.com/).

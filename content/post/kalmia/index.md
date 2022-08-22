@@ -12,4 +12,4 @@ image = "kalmia.png"
 +++
 
 
-[](https://github.com/mducharm/kalmia)
+You can find the full project [here](https://github.com/mducharm/kalmia).
