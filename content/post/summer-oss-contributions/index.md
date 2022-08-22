@@ -1,7 +1,7 @@
 +++
 title = "Contributing to .NET Documentation"
 date = "2022-08-01"
-description = "This summer I made 6 PRs into the dotnet/docs repo."
+description = "To make better use of my writing background, I made 6 PRs into the dotnet/docs repo this summer."
 categories = [
     "Open Source",
 ]

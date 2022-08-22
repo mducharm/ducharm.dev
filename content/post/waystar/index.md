@@ -3,7 +3,7 @@ title = "Application Engineer @ Waystar"
 date = "2020-11-01"
 description = "Developing .NET APIs and services on the Patient Payments team."
 categories = [
-    "Job",
+    "Jobs",
 ]
 tags = [
 ]
