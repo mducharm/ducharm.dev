@@ -6,7 +6,7 @@ categories = [
     "Open Source",
 ]
 tags = [
-    "Technical Writing", "C#", "F#", ".NET"
+    "Technical Writing", "C-Sharp", "F-Sharp", ".NET"
 ]
 image = "dotnet-docs.png"
 +++

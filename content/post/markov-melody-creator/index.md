@@ -6,7 +6,7 @@ categories = [
     "Project",
 ]
 tags = [
-    "C#", "Blazor", "MAUI"
+    "C-Sharp", "Blazor", "MAUI"
 ]
 image = "example_melody.png"
 +++

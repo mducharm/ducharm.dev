@@ -1,7 +1,7 @@
 +++
 title = "Advent of Code 2021"
 date = "2020-12-01"
-description = ""
+description = "This year's language: Python!"
 categories = [
     "Advent of Code",
 ]
@@ -11,5 +11,4 @@ tags = [
 image = "aoc.jpg"
 +++
 
-
-[](https://github.com/mducharm/advent_of_code_2020)
+My solutions for this year's problems can be found [here](https://github.com/mducharm/advent_of_code_2020).
