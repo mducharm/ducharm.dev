@@ -1,1 +1,3 @@
-Example site modified from https://github.com/gohugoio/hugoBasicExample
+# ducharm.dev
+
+Check out the deployed site [here](https://ducharm.dev/).
